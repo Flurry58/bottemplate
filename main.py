@@ -2,8 +2,7 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 from replit import db
-from dotenv import load_dotenv
-import os
+from boto.s3.connection import S3Connection
 client = commands.Bot(command_prefix='&')
 
 
@@ -109,6 +108,6 @@ async def on_member_join(member: discord.Member):
 async def on_member_remove(member: discord.Member):
   print(f'{member} has left a server.')
 
-load_dotenv('.env')
+s3 = S3Connection(os.environ['token'], os.environ['S3_SECRET'])
 client.run(os.getenv('TUTORIAL_BOT_TOKEN'))
 
